@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+<!-- question: 6  -->
+  <question type="truefalsegnrquiz">
+    <name>
+      <text>Is Legal</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>p ∧ ¬p is legal</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>1.0000000</penalty>
+    <hidden>0</hidden>
+    <time>2</time>
+    <difficulty>0.1000</difficulty>
+    <distinguishingdegree>0.1000</distinguishingdegree>
+    <answer fraction="100" format="moodle_auto_format">
+      <text>True</text>
+      <feedback format="html">
+        <text></text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="moodle_auto_format">
+      <text>False</text>
+      <feedback format="html">
+        <text></text>
+      </feedback>
+    </answer>
+    <tags>
+      <tag><text>adpq_1</text>
+</tag>
+    </tags>
+  </question>
+
+<!-- question: 8  -->
+  <question type="truefalsegnrquiz">
+    <name>
+      <text>Is Legal 2</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>¬<i>p</i>&nbsp;∨ ¬<i>p </i>is legal.<br></p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>1.0000000</penalty>
+    <hidden>0</hidden>
+    <time>2</time>
+    <difficulty>0.2000</difficulty>
+    <distinguishingdegree>0.1000</distinguishingdegree>
+    <answer fraction="100" format="moodle_auto_format">
+      <text>True</text>
+      <feedback format="html">
+        <text></text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="moodle_auto_format">
+      <text>False</text>
+      <feedback format="html">
+        <text></text>
+      </feedback>
+    </answer>
+    <tags>
+      <tag><text>adpq_2</text>
+</tag>
+    </tags>
+  </question>
+
+<!-- question: 9  -->
+  <question type="truefalsegnrquiz">
+    <name>
+      <text>Is Legal 3</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>¬(q ∨ r) ¬q ⇒ ¬¬p is legal<br></p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text></text>
+    </generalfeedback>
+    <defaultgrade>2.0000000</defaultgrade>
+    <penalty>1.0000000</penalty>
+    <hidden>0</hidden>
+    <time>3</time>
+    <difficulty>0.4000</difficulty>
+    <distinguishingdegree>0.8000</distinguishingdegree>
+    <answer fraction="0" format="moodle_auto_format">
+      <text>True</text>
+      <feedback format="html">
+        <text></text>
+      </feedback>
+    </answer>
+    <answer fraction="100" format="moodle_auto_format">
+      <text>False</text>
+      <feedback format="html">
+        <text></text>
+      </feedback>
+    </answer>
+    <tags>
+      <tag><text>adpq_6</text>
+</tag>
+    </tags>
+  </question>
+
+</quiz>
