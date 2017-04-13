@@ -26,7 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'qtype_truefalsegnrquiz';
-$plugin->version   = 2017041200;
+$plugin->version   = 2017041300;
 
 $plugin->requires  = 2016051900;
 

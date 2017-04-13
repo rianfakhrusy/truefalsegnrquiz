@@ -26,9 +26,14 @@
 $string['correctanswer'] = 'Correct answer';
 $string['correctanswerfalse'] = 'The correct answer is \'False\'.';
 $string['correctanswertrue'] = 'The correct answer is \'True\'.';
+$string['betweenzeroandone'] = 'You must enter a number between 0 and 1 here.';
+$string['morethanzero'] = 'You must enter a number more than 0 here.';
 $string['difficulty'] = 'Difficulty';
 $string['distinguishingdegree'] = 'Distinguishing Degree';
 $string['time'] = 'Time';
+$string['difficulty_help'] = 'How hard it is to answer the question correctly. The value must be a real number between 0 and 1. 0 is very easy and 1 is very hard.';
+$string['distinguishingdegree_help'] = 'How able the question to distinguishing student ability answer the question correctly. The value must be a real number between 0 and 1. 0 is not able (everyone is either correcly answer the question or everyone incorrectly answer the question) and 1 is very able';
+$string['time_help'] = 'Time needed to finish the question.';
 $string['questionattributes'] = 'Question Attributes';
 $string['false'] = 'False';
 $string['feedbackfalse'] = 'Feedback for the response \'False\'.';

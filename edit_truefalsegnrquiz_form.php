@@ -60,26 +60,26 @@ class qtype_truefalsegnrquiz_edit_form extends question_edit_form {
 
         //question attributes
         $mform->addElement('header', 'questionattributes', get_string('questionattributes', 'qtype_truefalsegnrquiz'));
-        #$mform->setExpanded('questionattributes');
 
-        $mform->addElement('text', 'time', get_string('time', 'qtype_truefalsegnrquiz'),
-                array('size' => 7));
+        $mform->addElement('duration', 'time', get_string('time', 'qtype_truefalsegnrquiz'),
+                array('optional' => false));
         $mform->setType('time', PARAM_INT);
-        $mform->setDefault('time', 5);
         $mform->addRule('time', null, 'required', null, 'client');
+        $mform->addHelpButton('time', 'time', 'qtype_truefalsegnrquiz');
 
         $mform->addElement('text', 'difficulty', get_string('difficulty', 'qtype_truefalsegnrquiz'),
                 array('size' => 7));
-        $mform->setType('difficulty', PARAM_FLOAT);
+        $mform->setType('difficulty', PARAM_TEXT);
         $mform->setDefault('difficulty', 0.5);
         $mform->addRule('difficulty', null, 'required', null, 'client');
+        $mform->addHelpButton('difficulty', 'difficulty', 'qtype_truefalsegnrquiz');
 
         $mform->addElement('text', 'distinguishingdegree', get_string('distinguishingdegree', 'qtype_truefalsegnrquiz'),
                 array('size' => 7));
-        $mform->setType('distinguishingdegree', PARAM_FLOAT);
+        $mform->setType('distinguishingdegree', PARAM_TEXT);
         $mform->setDefault('distinguishingdegree', 0.5);
         $mform->addRule('distinguishingdegree', null, 'required', null, 'client');
-
+        $mform->addHelpButton('distinguishingdegree', 'distinguishingdegree', 'qtype_truefalsegnrquiz');
 
 
         $mform->addElement('header', 'multitriesheader',
@@ -147,6 +147,21 @@ class qtype_truefalsegnrquiz_edit_form extends question_edit_form {
         }
 
         return $question;
+    }
+
+    public function validation($data, $files) {
+        $errors = parent::validation($data, $files);
+        
+        if (($data['time']<=0)||(!is_numeric($data['time']))) {
+            $errors['time'] = get_string('morethanzero', 'qtype_truefalsegnrquiz');
+        }
+        if (($data['difficulty']<0.0)||($data['difficulty']>1.0)||(!is_numeric($data['difficulty']))) {
+            $errors['difficulty'] = get_string('betweenzeroandone', 'qtype_truefalsegnrquiz');
+        }
+        if (($data['distinguishingdegree']<0.0)||($data['distinguishingdegree']>1.0)||(!is_numeric($data['distinguishingdegree']))) {
+            $errors['distinguishingdegree'] = get_string('betweenzeroandone', 'qtype_truefalsegnrquiz');
+        }
+        return $errors;
     }
 
     public function qtype() {
