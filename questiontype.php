@@ -209,132 +209,6 @@ class qtype_truefalsegnrquiz extends question_type {
     }
 
     /**
-     * Convert internal Moodle text format code into
-     * human readable form
-     * @param int id internal code
-     * @return string format text
-     */
-    public function get_format($id) {
-        switch($id) {
-            case FORMAT_MOODLE:
-                return 'moodle_auto_format';
-            case FORMAT_HTML:
-                return 'html';
-            case FORMAT_PLAIN:
-                return 'plain_text';
-            case FORMAT_WIKI:
-                return 'wiki_like';
-            case FORMAT_MARKDOWN:
-                return 'markdown';
-            default:
-                return 'unknown';
-        }
-    }
-
-    /**
-     * Translate human readable format name
-     * into internal Moodle code number
-     * @param string name format name from xml file
-     * @return int Moodle format code
-     */
-    public function trans_format($name) {
-        $name = trim($name);
-
-        if ($name == 'moodle_auto_format') {
-            return FORMAT_MOODLE;
-        } else if ($name == 'html') {
-            return FORMAT_HTML;
-        } else if ($name == 'plain_text') {
-            return FORMAT_PLAIN;
-        } else if ($name == 'wiki_like') {
-            return FORMAT_WIKI;
-        } else if ($name == 'markdown') {
-            return FORMAT_MARKDOWN;
-        } else {
-            debugging("Unrecognised text format '{$name}' in the import file. Assuming 'html'.");
-            return FORMAT_HTML;
-        }
-    }
-
-    public function import_files_as_draft($xml) {
-        global $USER;
-        if (empty($xml)) {
-            return null;
-        }
-        $fs = get_file_storage();
-        $itemid = file_get_unused_draft_itemid();
-        $filepaths = array();
-        foreach ($xml as $file) {
-            $filename = $this->getpath($file, array('@', 'name'), '', true);
-            $filepath = $this->getpath($file, array('@', 'path'), '/', true);
-            $fullpath = $filepath . $filename;
-            if (in_array($fullpath, $filepaths)) {
-                debugging('Duplicate file in XML: ' . $fullpath, DEBUG_DEVELOPER);
-                continue;
-            }
-            $filerecord = array(
-                'contextid' => context_user::instance($USER->id)->id,
-                'component' => 'user',
-                'filearea'  => 'draft',
-                'itemid'    => $itemid,
-                'filepath'  => $filepath,
-                'filename'  => $filename,
-            );
-            $fs->create_file_from_string($filerecord, base64_decode($file['#']));
-            $filepaths[] = $fullpath;
-        }
-        return $itemid;
-    }
-
-    public function import_text_with_files($data, $path, $defaultvalue = '', $defaultformat = 'html') {
-        $field  = array();
-        $field['text'] = $this->getpath($data,
-                array_merge($path, array('#', 'text', 0, '#')), $defaultvalue, true);
-        $field['format'] = $this->trans_format($this->getpath($data,
-                array_merge($path, array('@', 'format')), $defaultformat));
-        $itemid = $this->import_files_as_draft($this->getpath($data,
-                array_merge($path, array('#', 'file')), array(), false));
-        if (!empty($itemid)) {
-            $field['itemid'] = $itemid;
-        }
-        return $field;
-    }
-
-    /**
-     * return the value of a node, given a path to the node
-     * if it doesn't exist return the default value
-     * @param array xml data to read
-     * @param array path path to node expressed as array
-     * @param mixed default
-     * @param bool istext process as text
-     * @param string error if set value must exist, return false and issue message if not
-     * @return mixed value
-     */
-    public function getpath($xml, $path, $default, $istext=false, $error='') {
-        foreach ($path as $index) {
-            if (!isset($xml[$index])) {
-                if (!empty($error)) {
-                    $this->error($error);
-                    return false;
-                } else {
-                    return $default;
-                }
-            }
-
-            $xml = $xml[$index];
-        }
-
-        if ($istext) {
-            if (!is_string($xml)) {
-                $this->error(get_string('invalidxml', 'qformat_xml'));
-            }
-            $xml = trim($xml);
-        }
-
-        return $xml;
-    }
-
-    /**
      * If your question type has a table that extends the question table, and
      * you want the base class to automatically save, backup and restore the extra fields,
      * override this method to return an array where the first element is the table name,
@@ -427,10 +301,10 @@ class qtype_truefalsegnrquiz extends question_type {
         }
         $first = true;
         foreach ($answers as $answer) {
-            $answertext = $this->getpath($answer,
+            $answertext = $format->getpath($answer,
                     array('#', 'text', 0, '#'), '', true);
-            $feedback = $this->import_text_with_files($answer,
-                    array('#', 'feedback', 0), '', $this->get_format($qo->questiontextformat));
+            $feedback = $format->import_text_with_files($answer,
+                    array('#', 'feedback', 0), '', $format->get_format($qo->questiontextformat));
 
             if ($answertext != 'True' && $answertext != 'False') {
                 // Old style file, assume order is true/false.
